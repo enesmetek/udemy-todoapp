@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>udemy.todoapp_ntier_Business</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\udemy.todoapp-ntier-DataAccess\udemy.todoapp-ntier-DataAccess.csproj" />
+    <ProjectReference Include="..\udemy.todoapp-ntier-DTO\udemy.todoapp-ntier-DTO.csproj" />
+  </ItemGroup>
+
+</Project>
