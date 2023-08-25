@@ -52,9 +52,9 @@ namespace udemy.todoapp_ntier_Business.Services.Concrete
             return workDTOList;
         }
 
-        public async Task<WorkListDTO> GetByID(object id)
+        public async Task<WorkListDTO> GetByID(int id)
         {
-            var work = await _unitOfWork.GetRepository<Work>().GetByID(id);
+            var work = await _unitOfWork.GetRepository<Work>().GetByFilter(x => x.ID == id);
             return new()
             {
                 Definition = work.Definition,
@@ -62,10 +62,9 @@ namespace udemy.todoapp_ntier_Business.Services.Concrete
             };
         }
 
-        public async void Remove(object id)
+        public async Task Remove(int id)
         {
-            var deletedWork = await _unitOfWork.GetRepository<Work>().GetByID(id);
-            _unitOfWork.GetRepository<Work>().Remove(deletedWork);
+            _unitOfWork.GetRepository<Work>().Remove(id);
             await _unitOfWork.SaveChanges();
         }
 

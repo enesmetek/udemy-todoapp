@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace udemy.todoapp_ntier_Entities.Concrete
 {
-    public class Work : BaseEntity
+    public class BaseEntity
     {
-        public string Definition { get; set; }
-        public bool IsCompleted { get; set; }
+        public int ID { get; set; }
     }
 }

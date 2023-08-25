@@ -7,6 +7,7 @@ using udemy.todoapp_ntier_DataAccess.Context;
 using udemy.todoapp_ntier_DataAccess.Repositories.Abstract;
 using udemy.todoapp_ntier_DataAccess.Repositories.Concrete;
 using udemy.todoapp_ntier_DataAccess.UnitOfWork.Abstract;
+using udemy.todoapp_ntier_Entities.Concrete;
 
 namespace udemy.todoapp_ntier_DataAccess.UnitOfWork.Concrete
 {
@@ -19,7 +20,7 @@ namespace udemy.todoapp_ntier_DataAccess.UnitOfWork.Concrete
             _context = context;
         }
 
-        public IGenericRepository<T> GetRepository<T>() where T : class, new()
+        public IGenericRepository<T> GetRepository<T>() where T : BaseEntity
         {
             return new GenericRepository<T>(_context);
         }

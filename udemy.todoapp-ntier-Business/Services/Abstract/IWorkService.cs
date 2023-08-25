@@ -13,9 +13,9 @@ namespace udemy.todoapp_ntier_Business.Services.Abstract
 
         Task Create(WorkCreateDTO dTO);
         
-        Task<WorkListDTO> GetByID(object id);
+        Task<WorkListDTO> GetByID(int id);
 
-        void Remove(object id);
+        Task Remove(int id);
 
         Task Update(WorkUpdateDTO dTO);
     }

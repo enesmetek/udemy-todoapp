@@ -7,10 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using udemy.todoapp_ntier_DataAccess.Context;
 using udemy.todoapp_ntier_DataAccess.Repositories.Abstract;
+using udemy.todoapp_ntier_Entities.Concrete;
 
 namespace udemy.todoapp_ntier_DataAccess.Repositories.Concrete
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, new()
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly ToDoContext _context;
 
@@ -27,12 +28,16 @@ namespace udemy.todoapp_ntier_DataAccess.Repositories.Concrete
 
         public void Update(T entity)
         {
-           _context.Set<T>().Update(entity);
+            var updatedEntity = _context.Set<T>().Find(entity.ID);
+            _context.Entry(updatedEntity).CurrentValues.SetValues(entity);
+            
+            //_context.Set<T>().Update(entity);
         }
 
-        public void Remove(T entity)
+        public void Remove(object id)
         {
-            _context.Set<T>().Remove(entity);
+            var deletedEntity = _context.Set<T>().Find(id);
+            _context.Set<T>().Remove(deletedEntity);
         }
 
         public async Task<T> GetByID(object id)
