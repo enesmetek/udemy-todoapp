@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using udemy.todoapp_ntier_Business.Services.Abstract;
+using udemy.todoapp_ntier_Common.ResponseObjects.Concrete;
 using udemy.todoapp_ntier_DTO.WorkDTOs;
+using udemy.todoapp_ntier_WebUI.Extensions;
 
 namespace udemy.todoapp_ntier_WebUI.Controllers
 {
@@ -16,8 +21,8 @@ namespace udemy.todoapp_ntier_WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var workList = await _workService.GetAll();
-            return View(workList);
+            var response = await _workService.GetAll();
+            return View(response.Data);
         }
 
         public IActionResult Create()
@@ -28,41 +33,33 @@ namespace udemy.todoapp_ntier_WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(WorkCreateDTO dTO)
         {
-            if( ModelState.IsValid )
-            {
-                await _workService.Create(dTO);
-                return RedirectToAction("Index");
-            }            
-            return View(dTO);
+            var response = await _workService.Create(dTO);
+            return this.ResponseRedirectToAction(response, "Index");
         }
 
         public async Task<IActionResult> Update(int id)
         {
-            var dto = await _workService.GetByID(id);
-            
-            return View(new WorkUpdateDTO
-            {
-                ID = dto.ID,
-                Definition = dto.Definition,
-                IsCompleted = dto.IsCompleted,
-            });   
+            var response = await _workService.GetByID<WorkUpdateDTO>(id);
+            return this.ResponseView(response); 
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(WorkUpdateDTO dTO)
         {
-            if(ModelState.IsValid)
-            {
-                await _workService.Update(dTO);
-                return RedirectToAction("Index");
-            }
-            return View(dTO);
+           
+            var response = await _workService.Update(dTO);
+            return this.ResponseRedirectToAction(response, "Index");
         }
 
         public async Task<IActionResult> Remove(int id)
         {
-            await _workService.Remove(id);
-            return RedirectToAction("Index");
+            var response = await _workService.Remove(id);
+            return this.ResponseRedirectToAction(response, "Index");
+        }
+
+        public  IActionResult NotFound(int code)
+        {
+            return View();
         }
     }
 }

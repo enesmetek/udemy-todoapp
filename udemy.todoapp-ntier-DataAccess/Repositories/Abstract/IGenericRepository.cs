@@ -12,9 +12,9 @@ namespace udemy.todoapp_ntier_DataAccess.Repositories.Abstract
     {
         Task Create(T entity);
 
-        void Update(T entity);
+        void Update(T entity, T unchanged);
 
-        void Remove(object id);
+        void Remove(T entity);
 
         Task<T> GetByID(object id);
 

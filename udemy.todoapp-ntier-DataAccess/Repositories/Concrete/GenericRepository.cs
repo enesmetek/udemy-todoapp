@@ -26,18 +26,16 @@ namespace udemy.todoapp_ntier_DataAccess.Repositories.Concrete
             await _context.Set<T>().AddAsync(entity);
         }
 
-        public void Update(T entity)
+        public void Update(T entity, T unchanged)
         {
-            var updatedEntity = _context.Set<T>().Find(entity.ID);
-            _context.Entry(updatedEntity).CurrentValues.SetValues(entity);
+            _context.Entry(unchanged).CurrentValues.SetValues(entity);
             
             //_context.Set<T>().Update(entity);
         }
 
-        public void Remove(object id)
+        public void Remove(T entity)
         {
-            var deletedEntity = _context.Set<T>().Find(id);
-            _context.Set<T>().Remove(deletedEntity);
+            _context.Set<T>().Remove(entity);
         }
 
         public async Task<T> GetByID(object id)

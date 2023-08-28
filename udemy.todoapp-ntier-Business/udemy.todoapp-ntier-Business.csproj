@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="FluentValidation" Version="10.2.3" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\udemy.todoapp-ntier-Common\udemy.todoapp-ntier-Common.csproj" />
     <ProjectReference Include="..\udemy.todoapp-ntier-DataAccess\udemy.todoapp-ntier-DataAccess.csproj" />
     <ProjectReference Include="..\udemy.todoapp-ntier-DTO\udemy.todoapp-ntier-DTO.csproj" />
   </ItemGroup>
